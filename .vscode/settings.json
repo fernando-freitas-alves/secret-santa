@@ -1,0 +1,56 @@
+{
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnSave": true,
+        "editor.rulers": [
+            88
+        ],
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 88,
+        "editor.wrappingIndent": "same"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": false
+    },
+    "editor.rulers": [
+        88
+    ],
+    "files.autoSave": "onFocusChange",
+    "files.exclude": {
+        "**/*.pyc": true,
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.mypy_cache": true,
+        "**/.svn": true,
+        "**/CVS": true,
+        "**/__pycache__": true,
+        "**/env": true,
+        "**/node_modules": true,
+        ".venv": true,
+        "venv": true,
+    },
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/src"
+    ],
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/src"
+    ],
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.flake8Args": [
+        "--config",
+        "./setup.cfg"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.sortImports.args": [
+        "-sp ./setup.cfg"
+    ],
+    "python.testing.cwd": "src/tests",
+    "shellcheck.run": "onSave"
+}

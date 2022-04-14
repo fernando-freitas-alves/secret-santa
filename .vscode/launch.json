@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run application",
+            "type": "python",
+            "request": "launch",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src${pathSeparator}${env:PYTHONPATH}"
+            },
+            "program": "${workspaceFolder}/src/__main__.py",
+            "args": [
+                "data/people.txt",
+                "data/pair_exclusions.txt",
+                "--only-initials",
+                "--remove-comments",
+                "--strip-whitespaces",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}
