@@ -2,7 +2,7 @@ __all__ = [
     "Graph",
 ]
 
-from typing import Any, Dict, FrozenSet, Iterable, List, Optional, Tuple
+from typing import Any, Dict, FrozenSet, Iterable, List, Optional, Set, Tuple
 
 import networkx
 from matplotlib import pyplot
@@ -71,32 +71,45 @@ class Graph(networkx.Graph):
         return frozenset((frozenset(edge) for edge in self.edges))
 
     @property
-    def path_people_start(self) -> Optional[FrozenSet[str]]:
-        if self.path is not None:
-            return frozenset((pair[0] for pair in self.path))
-        else:
+    def path_people(self) -> Optional[FrozenSet[str]]:
+        if self.path is None:
             return None
 
+        people: Set[str] = set()
+        for pair in self.path:
+            people.add(pair[0])
+            people.add(pair[1])
+        return frozenset(people)
+
     @property
-    def path_pairs(self) -> FrozenSet[FrozenSet[str]]:
-        return frozenset((frozenset(pair) for pair in self.path or []))
+    def path_pairs(self) -> Optional[FrozenSet[FrozenSet[str]]]:
+        if self.path is None:
+            return None
+
+        return frozenset((frozenset(pair) for pair in self.path))
 
     @property
     def people(self) -> FrozenSet[str]:
         return frozenset(self.nodes)
 
     @property
-    def people_not_in_pairs(self) -> FrozenSet[str]:
+    def people_not_in_pairs(self) -> Optional[FrozenSet[str]]:
+        if self.path is None:
+            return None
+
         return people_rules.get_people_not_in_pairs(
             people=self.people,
             pairs=self.pairs,
         )
 
     @property
-    def people_not_as_starter_in_path(self) -> FrozenSet[str]:
+    def people_not_in_path(self) -> Optional[FrozenSet[str]]:
+        if self.path is None:
+            return None
+
         return people_rules.get_people_not_in_collection(
             people=self.people,
-            collection=self.path_people_start,
+            collection=self.path_people,
         )
 
     def show(self) -> None:
