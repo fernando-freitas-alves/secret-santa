@@ -41,7 +41,7 @@ fi
 
 # shellcheck disable=SC2120
 enter_python_env()
-(
+{
     VIRTUALENV_PATH="$1"
     readonly VIRTUALENV_PATH
 
@@ -50,7 +50,7 @@ enter_python_env()
 
     # shellcheck disable=SC1090
     source "$PIP_ACTIVATE"
-)
+}
 
 (
     # shellcheck disable=SC2119
