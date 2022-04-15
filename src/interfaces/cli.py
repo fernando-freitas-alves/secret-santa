@@ -81,8 +81,8 @@ def run(
 
     print_collection(graph.people, name="people")
     print_collection(graph.pairs, name="possible pairs")
-    print_collection(graph.path, name="solution")
-    print_collection(graph.path_people, name="people in the solution")
+    print_collection(graph.solution, name="solution")
+    print_collection(graph.people_in_solution, name="people in the solution")
 
     people_not_in_possible_pairs = list(graph.people_not_in_pairs)
     if len(people_not_in_possible_pairs) != 0:
@@ -91,14 +91,16 @@ def run(
             f"{people_not_in_possible_pairs}"
         )
 
-    people_not_in_path = list(graph.people_not_in_path)
+    people_not_in_path = list(graph.people_not_in_solution)
     if len(people_not_in_path) != 0:
         print(
             "WARNING: The following people are not included in the solution: "
             f"{people_not_in_path}"
         )
 
-    people_with_single_connection = list(graph.people_with_single_connection)
+    people_with_single_connection = list(
+        graph.people_with_single_connection_in_solution
+    )
     if len(people_with_single_connection) != 0:
         print(
             "WARNING: The following people may not give or receive any gift: "
