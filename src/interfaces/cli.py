@@ -10,11 +10,18 @@ from typing import Any, Collection
 import click
 
 from rules import main
+from utils import collection
 
 
-def print_collection(collection: Collection[Any], /, name: str) -> None:
-    print(f"{name}({len(collection)}) = ")
-    pprint(sorted(collection))
+def print_collection(
+    c: Collection[Any], /, name: str, convert_to_list: bool = True
+) -> None:
+    if convert_to_list:
+        c = collection.convert_to_list(c)
+
+    print(f"{name}({len(c)}) = ")
+    pprint(sorted(c))
+    print()
 
 
 @click.command(
@@ -72,10 +79,10 @@ def run(
         strip_whitespaces=strip_whitespaces,
     )
 
-    print_collection(graph.pairs, name="possible pairs")
-    print_collection(graph.path, name="path")
     print_collection(graph.people, name="people")
-    print_collection(graph.path_people, name="people in the path")
+    print_collection(graph.pairs, name="possible pairs")
+    print_collection(graph.path, name="solution")
+    print_collection(graph.path_people, name="people in the solution")
 
     people_not_in_possible_pairs = list(graph.people_not_in_pairs)
     if len(people_not_in_possible_pairs) != 0:
