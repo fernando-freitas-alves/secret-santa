@@ -13,6 +13,10 @@ REPODIR="$DIRNAME/.."
 REPODIR="$(realpath --relative-to=. "$REPODIR")"
 readonly REPODIR
 
+PYTHON_VENV_PATH="$REPODIR/.venv"
+PYTHON_VENV_PATH="$(realpath --relative-to=. "$PYTHON_VENV_PATH")"
+readonly PYTHON_VENV_PATH
+
 ROOT="$REPODIR/src"
 ROOT="$(realpath --relative-to=. "$ROOT")"
 readonly ROOT
@@ -75,6 +79,19 @@ alias run_linter_black='print_stderr BLACK && execute python -m black "$ROOT"'
 alias run_linter_flake8='print_stderr FLAKE8 && execute python -m flake8 "$ROOT" && echo All done! ✨ 🍩 ✨'
 alias run_linter_isort='print_stderr ISORT && execute python -m isort "$ROOT" && echo All done! ✨ 🍪 ✨'
 alias run_linter_mypy='print_stderr MYPY && execute python -m mypy --config-file "$MYPY_CONFIG" --cache-dir ".mypy_cache/container" "$ROOT" && echo All done! ✨ 🍪 ✨'
+
+# shellcheck disable=SC2120
+enter_python_env()
+{
+    VIRTUALENV_PATH="$1"
+    readonly VIRTUALENV_PATH
+
+    PIP_ACTIVATE="$VIRTUALENV_PATH/bin/activate"
+    readonly PIP_ACTIVATE
+
+    # shellcheck disable=SC1090
+    source "$PIP_ACTIVATE"
+}
 
 function execute() (
     echo "> $*"
@@ -144,5 +161,7 @@ function run_linters() {
 
 (
     cd "$REPODIR"
+    # shellcheck disable=SC2119
+    enter_python_env "$PYTHON_VENV_PATH"
     run_linters
 )
