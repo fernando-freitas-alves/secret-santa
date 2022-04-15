@@ -75,7 +75,7 @@ def run(
     print_collection(graph.pairs, name="possible pairs")
     print_collection(graph.path, name="path")
     print_collection(graph.people, name="people")
-    print_collection(graph.path_people_start, name="people in the path")
+    print_collection(graph.path_people, name="people in the path")
 
     people_not_in_possible_pairs = list(graph.people_not_in_pairs)
     if len(people_not_in_possible_pairs) != 0:
@@ -84,11 +84,11 @@ def run(
             f"{people_not_in_possible_pairs}"
         )
 
-    people_not_as_starter_in_path = list(graph.people_not_as_starter_in_path)
-    if len(people_not_as_starter_in_path) != 0:
+    people_not_in_path = list(graph.people_not_in_path)
+    if len(people_not_in_path) != 0:
         print(
-            "WARNING: The following people are not included as a starter in the path: "
-            f"{people_not_as_starter_in_path}"
+            "WARNING: The following people are not included in the solution: "
+            f"{people_not_in_path}"
         )
 
     graph.show()
