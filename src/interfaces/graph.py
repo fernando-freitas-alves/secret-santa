@@ -8,6 +8,7 @@ import networkx
 from matplotlib import pyplot
 
 from rules import people_rules
+from utils import collection
 
 
 class Graph(networkx.Graph):
@@ -112,6 +113,16 @@ class Graph(networkx.Graph):
             collection=self.path_people,
         )
 
+    @property
+    def people_with_single_connection(self) -> Optional[FrozenSet[str]]:
+        if self.path is None:
+            return None
+
+        path_people_repeating_sequence = [
+            person for pair in self.path for person in pair
+        ]
+        return collection.get_non_repeated_items(path_people_repeating_sequence)
+
     def show(self) -> None:
         self.nodes_positions = networkx.circular_layout(self)
         if self.path is None:
@@ -129,5 +140,11 @@ class Graph(networkx.Graph):
             edgelist=self.path,
             edge_color="red",
             width=2,
+        )
+        networkx.draw_networkx_nodes(
+            self,
+            pos=self.nodes_positions,
+            nodelist=self.people_with_single_connection,
+            node_color="red",
         )
         pyplot.show()

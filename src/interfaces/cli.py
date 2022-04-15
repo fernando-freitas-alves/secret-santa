@@ -91,4 +91,11 @@ def run(
             f"{people_not_in_path}"
         )
 
+    people_with_single_connection = list(graph.people_with_single_connection)
+    if len(people_with_single_connection) != 0:
+        print(
+            "WARNING: The following people may not give or receive any gift: "
+            f"{people_with_single_connection}"
+        )
+
     graph.show()
