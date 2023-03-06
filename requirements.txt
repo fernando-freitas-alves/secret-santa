@@ -1,4 +1,4 @@
 # App
 click==8.1.2
-matplotlib==3.5.1
+matplotlib==3.7.1
 networkx==2.8
